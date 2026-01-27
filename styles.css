@@ -14,18 +14,13 @@
     font-family: 'Verdana';
     src: url(./assets/Verdana.ttf);
 }
+
 html{
     font-size: 100%;
 }
+
 body{
     font-family: "Verdana", sans-serif;
-}
-
-.gallery{
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-
 }
 
 p{
@@ -33,11 +28,6 @@ p{
     line-height: 1.5;
     max-width: 65ch;
     text-align: start;
-}
-
-.gallery img{
-    width: 30%;
-    height: auto;
 }
 
 a{
@@ -68,6 +58,17 @@ h2{
     font-size: clamp(1rem, 1.5vw, 1.5rem);
     font-weight: 400;
     line-height: 1.5;
+}
+
+.gallery{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.gallery img{
+    width: 30%;
+    height: auto;
 }
 
 .hero img{
@@ -127,8 +128,8 @@ body.dyslexia-mode #dyslexia-toggle {
 
 @media (prefers-reduced-motion: reduce) {
   * {
-    animation: none;
-    transition: none;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
