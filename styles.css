@@ -98,6 +98,7 @@ h2{
 li a:hover,
 li a:focus-visible {
     text-decoration: underline;
+
 }
 
 .dyslexia-mode {
