@@ -13,9 +13,6 @@
     <a href="#main" class="skip-link">
     Skip to main content
     </a>
-    <button id="dyslexia-toggle">
-        Enable Dyslexia Mode
-    </button>
     <div class="site-branding">
         <a href="/">
           <img src="https://images.squarespace-cdn.com/content/v1/5dd43005931aab7d2c9b4cdf/1574188395319-GMSWC31FBBBBGD2QSYED/standardtaplogo.png"
@@ -23,64 +20,100 @@
         </a>
       <h1>Eat Local | Drink Local</h1>
     </div>
-
-    <nav aria-label="Main Navigation">
+    <div class="flex">
+      <nav aria-label="Main Navigation">
       <ul>
         <li><a href="">Home</a></li>
         <li><a href="">About Us</a></li>
         <li><a href="">Inside The Tap</a></li>
         <li><a href="">Jobs</a></li>
+        <li class="social">
+          <a href="https://instagram.com/standardtap" target="_blank" aria-label="Standard Tap on Instagram">
+            <img src="assets/insta-logo.svg" data-light="assets/insta-logo.svg" data-dark="assets/insta-dark-logo.svg" alt=""/>
+          </a>
+        </li>
+        <li class="social">
+          <a href="https://www.facebook.com/StandardTap/" target="_blank" aria-label="Standard Tap on Facebook">
+            <img src="assets/fb-logo.svg" data-light="assets/fb-logo.svg" data-dark="assets/fb-dark-logo.svg" alt=""/>
+          </a>
+        </li>
       </ul>
     </nav>
-
-    <nav class="social-links" aria-label="Social Media Links">
-      <a href="https://instagram.com/standardtap" target="_blank">Instagram</a>
-      <a href="https://www.facebook.com/StandardTap/" target="_blank">Facebook</a>
-    </nav>
+    <div class="dyslexia-toggle">
+      <span id="dyslexia-label">Dyslexia Mode</span>
+      <button id="dyslexia-toggle" class="switch" role="switch" aria-checked="false" aria-labelledby="dyslexia-label">
+        <span class="switch-handle"></span>
+      </button>
+    </div>
+    </div>
   </header>
 
   <main id="main" tabindex="-1">
-    <section class="hero">
-      <img src="https://images.squarespace-cdn.com/content/v1/5dd43005931aab7d2c9b4cdf/1592505151560-CEYVJVN3I89QY1W0RVCQ/homepage%2Bbackground.jpg"
-           alt="Standard Tap interior" />
-    </section>
-
-    <section class="gallery">
-      <img src="https://images.squarespace-cdn.com/content/v1/5dd43005931aab7d2c9b4cdf/1682466593120-5XAHETOP9T0EJ8B3QXQ9/DSC09993.jpg" alt="Food" /> <!--change to background images and give null tag-->
-      <img src="https://images.squarespace-cdn.com/content/v1/5dd43005931aab7d2c9b4cdf/1681236670642-6CSM02E4DPV5VDE2HC1P/DSC04756.jpg" alt="Drinks" />
-      <img src="https://images.squarespace-cdn.com/content/v1/5dd43005931aab7d2c9b4cdf/1683046927496-STR69ORZ93CP3G6DN9E6/public.jpeg" alt="Interior" />
-      <img src="https://images.squarespace-cdn.com/content/v1/5dd43005931aab7d2c9b4cdf/1739847118194-CU3IDQPMOUGMMX12Z4S9/HH.jpg" alt="Happy Hour" />
-    </section>
-
-    <section class="location">
-      <p>901 N 2nd St | Northern Liberties | Philadelphia, PA</p>
-    </section>
+      <h2>901 N 2nd St | Northern Liberties | Philadelphia, PA</h2>
     <nav class="primary-actions" aria-label="Activity Links">
       <ul>
-        <li><a href="">Eat</a></li>
-        <li><a href="">Drink</a></li>
-        <li><a href="">Visit</a></li>
-        <li><a href="">Happy Hour</a></li>
+        <li><a href="" data-bg="food" class="action-link">Eat</a></li>
+        <li><a href="" data-bg="drink" class="action-link">Drink</a></li>
+        <li><a href="" data-bg="visit" class="action-link">Visit</a></li>
+        <li><a href="" data-bg="happy" class="action-link">Happy Hour</a></li>
       </ul>
     </nav>
   </main>
    <script>
-    const toggleButton = document.getElementById("dyslexia-toggle");
+  const toggle = document.getElementById("dyslexia-toggle");
 
-    // Load saved preference
-    if (localStorage.getItem("dyslexia") === "on") {
-      document.body.classList.add("dyslexia-mode");
-      toggleButton.textContent = "Disable Dyslexia Mode";
-      toggleButton.setAttribute("aria-pressed", "true");
-    }
+  // Load saved preference
+  const isOn = localStorage.getItem("dyslexia") === "on";
 
-    toggleButton.addEventListener("click", () => {
-      const enabled = document.body.classList.toggle("dyslexia-mode");
-      toggleButton.textContent = enabled ? "Disable Dyslexia Mode" : "Enable Dyslexia Mode";
-      toggleButton.setAttribute("aria-pressed", enabled);
-      localStorage.setItem("dyslexia", enabled ? "on" : "off");
+  if (isOn) {
+    document.body.classList.add("dyslexia-mode");
+    toggle.setAttribute("aria-checked", "true");
+  }
+
+  toggle.addEventListener("click", () => {
+    const enabled = document.body.classList.toggle("dyslexia-mode");
+
+    toggle.setAttribute("aria-checked", enabled.toString());
+    localStorage.setItem("dyslexia", enabled ? "on" : "off");
+  });
+   const links = document.querySelectorAll("[data-bg]");
+  const body = document.body;
+
+  links.forEach(link => {
+    const bgClass = `bg-${link.dataset.bg}`;
+
+    link.addEventListener("mouseenter", () => {
+      body.classList.add(bgClass);
     });
 
-  </script>
+    link.addEventListener("mouseleave", () => {
+      body.classList.remove(bgClass);
+    });
+
+    // Keyboard accessibility
+    link.addEventListener("focus", () => {
+      body.classList.add(bgClass);
+    });
+
+    link.addEventListener("blur", () => {
+      body.classList.remove(bgClass);
+    });
+  });
+</script>
+<script>
+  const updateSocialIcons = () => {
+    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    document.querySelectorAll(".social img").forEach(img => {
+      img.src = isDark ? img.dataset.dark : img.dataset.light;
+    });
+  };
+
+  updateSocialIcons();
+
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", updateSocialIcons);
+</script>
 </body>
 </html>
