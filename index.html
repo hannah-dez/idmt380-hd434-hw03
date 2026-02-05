@@ -10,110 +10,146 @@
 
 <body>
   <header>
-    <a href="#main" class="skip-link">
-    Skip to main content
-    </a>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
     <div class="site-branding">
-        <a href="/">
-          <img src="https://images.squarespace-cdn.com/content/v1/5dd43005931aab7d2c9b4cdf/1574188395319-GMSWC31FBBBBGD2QSYED/standardtaplogo.png"
-               alt="Standard Tap Logo" />
-        </a>
+      <a href="/">
+        <img src="https://images.squarespace-cdn.com/content/v1/5dd43005931aab7d2c9b4cdf/1574188395319-GMSWC31FBBBBGD2QSYED/standardtaplogo.png"
+            alt="Standard Tap Logo" />
+      </a>
       <h1>Eat Local | Drink Local</h1>
     </div>
-    <div class="flex">
-      <nav aria-label="Main Navigation">
+    
+  
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="header-menu closed" aria-label="Main Menu">
       <ul>
-        <li><a href="">Home</a></li>
-        <li><a href="">About Us</a></li>
-        <li><a href="">Inside The Tap</a></li>
-        <li><a href="">Jobs</a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Inside The Tap</a></li>
+        <li><a href="#">Jobs</a></li>
         <li class="social">
           <a href="https://instagram.com/standardtap" target="_blank" aria-label="Standard Tap on Instagram">
-            <img src="assets/insta-logo.svg" data-light="assets/insta-logo.svg" data-dark="assets/insta-dark-logo.svg" alt=""/>
+            <img src="assets/insta-logo.svg" data-light="assets/insta-logo.svg" data-dark="assets/insta-dark-logo.svg" alt="Instagram"/>
           </a>
         </li>
         <li class="social">
           <a href="https://www.facebook.com/StandardTap/" target="_blank" aria-label="Standard Tap on Facebook">
-            <img src="assets/fb-logo.svg" data-light="assets/fb-logo.svg" data-dark="assets/fb-dark-logo.svg" alt=""/>
+            <img src="assets/fb-logo.svg" data-light="assets/fb-logo.svg" data-dark="assets/fb-dark-logo.svg" alt="Facebook"/>
           </a>
         </li>
       </ul>
-    </nav>
-    <div class="dyslexia-toggle">
-      <span id="dyslexia-label">Dyslexia Mode</span>
-      <button id="dyslexia-toggle" class="switch" role="switch" aria-checked="false" aria-labelledby="dyslexia-label">
-        <span class="switch-handle"></span>
-      </button>
-    </div>
-    </div>
+
+      <div class="dyslexia-toggle">
+        <span id="dyslexia-label">Dyslexia Mode</span>
+        <button id="dyslexia-toggle" class="switch" role="switch" aria-checked="false" aria-labelledby="dyslexia-label">
+          <span class="switch-handle"></span>
+        </button>
+      </div>
+    </nav> 
   </header>
 
+
   <main id="main" tabindex="-1">
-      <h2>901 N 2nd St | Northern Liberties | Philadelphia, PA</h2>
-    <nav class="primary-actions" aria-label="Activity Links">
-      <ul>
-        <li><a href="" data-bg="food" class="action-link">Eat</a></li>
-        <li><a href="" data-bg="drink" class="action-link">Drink</a></li>
-        <li><a href="" data-bg="visit" class="action-link">Visit</a></li>
-        <li><a href="" data-bg="happy" class="action-link">Happy Hour</a></li>
-      </ul>
-    </nav>
+    <article class="main-box">
+      <address>901 N 2nd St | Northern Liberties | Philadelphia, PA</address>
+
+      <nav class="primary-actions" aria-label="Activity Links">
+        <ul>
+          <li><a href="#" data-bg="food" class="action-link">Eat</a></li>
+          <li><a href="#" data-bg="drink" class="action-link">Drink</a></li>
+          <li><a href="#" data-bg="visit" class="action-link">Visit</a></li>
+          <li><a href="#" data-bg="happy" class="action-link">Happy Hour</a></li>
+        </ul>
+      </nav>
+    </article>
   </main>
-   <script>
-  const toggle = document.getElementById("dyslexia-toggle");
 
-  // Load saved preference
-  const isOn = localStorage.getItem("dyslexia") === "on";
+  <script>
+    const toggle = document.getElementById("dyslexia-toggle");
 
-  if (isOn) {
-    document.body.classList.add("dyslexia-mode");
-    toggle.setAttribute("aria-checked", "true");
+    // Load saved preference
+    const isOn = localStorage.getItem("dyslexia") === "on";
+    if (isOn) {
+      document.body.classList.add("dyslexia-mode");
+      toggle.setAttribute("aria-checked", "true");
+    }
+
+    toggle.addEventListener("click", () => {
+      const enabled = document.body.classList.toggle("dyslexia-mode");
+      toggle.setAttribute("aria-checked", enabled.toString());
+      localStorage.setItem("dyslexia", enabled ? "on" : "off");
+    });
+
+    const links = document.querySelectorAll("[data-bg]");
+    const body = document.body;
+
+    links.forEach(link => {
+      const bgClass = `bg-${link.dataset.bg}`;
+      link.addEventListener("mouseenter", () => body.classList.add(bgClass));
+      link.addEventListener("mouseleave", () => body.classList.remove(bgClass));
+      link.addEventListener("focus", () => body.classList.add(bgClass));
+      link.addEventListener("blur", () => body.classList.remove(bgClass));
+    });
+
+    const updateSocialIcons = () => {
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.querySelectorAll(".social img").forEach(img => {
+        img.src = isDark ? img.dataset.dark : img.dataset.light;
+      });
+    };
+
+    updateSocialIcons();
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", updateSocialIcons);
+
+const hamburger = document.querySelector(".hamburger");
+const headerMenu = document.querySelector(".header-menu");
+ const dyslexiaToggle = document.getElementById("dyslexia-toggle");
+
+  hamburger.addEventListener("click", () => {
+    const isOpen = headerMenu.classList.toggle("closed") === false;
+    hamburger.setAttribute("aria-expanded", isOpen.toString());
+  });
+
+  // Close hamburger menu when tabbing past dyslexia toggle (mobile only)
+  dyslexiaToggle.addEventListener("keydown", (e) => {
+    const isTab = e.key === "Tab";
+    const isShift = e.shiftKey;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const menuIsOpen = !headerMenu.classList.contains("closed");
+
+    // Forward tab only, mobile only, menu open
+    if (isTab && !isShift && isMobile && menuIsOpen) {
+      headerMenu.classList.add("closed");
+      hamburger.setAttribute("aria-expanded", "false");
+    }
+  });
+const mediaQuery = window.matchMedia("(min-width: 769px)");
+
+function handleResize(e) {
+  if (e.matches) {
+    // Desktop: always show nav
+    headerMenu.classList.remove("closed");
+    hamburger.setAttribute("aria-expanded", "true");
+  } else {
+    // Mobile: hide nav by default
+    headerMenu.classList.add("closed");
+    hamburger.setAttribute("aria-expanded", "false");
   }
+}
 
-  toggle.addEventListener("click", () => {
-    const enabled = document.body.classList.toggle("dyslexia-mode");
+// Run once on load
+handleResize(mediaQuery);
 
-    toggle.setAttribute("aria-checked", enabled.toString());
-    localStorage.setItem("dyslexia", enabled ? "on" : "off");
-  });
-   const links = document.querySelectorAll("[data-bg]");
-  const body = document.body;
+// Run on resize
+mediaQuery.addEventListener("change", handleResize);
 
-  links.forEach(link => {
-    const bgClass = `bg-${link.dataset.bg}`;
-
-    link.addEventListener("mouseenter", () => {
-      body.classList.add(bgClass);
-    });
-
-    link.addEventListener("mouseleave", () => {
-      body.classList.remove(bgClass);
-    });
-
-    // Keyboard accessibility
-    link.addEventListener("focus", () => {
-      body.classList.add(bgClass);
-    });
-
-    link.addEventListener("blur", () => {
-      body.classList.remove(bgClass);
-    });
-  });
-</script>
-<script>
-  const updateSocialIcons = () => {
-    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-    document.querySelectorAll(".social img").forEach(img => {
-      img.src = isDark ? img.dataset.dark : img.dataset.light;
-    });
-  };
-
-  updateSocialIcons();
-
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", updateSocialIcons);
-</script>
+  </script>
 </body>
 </html>
+
