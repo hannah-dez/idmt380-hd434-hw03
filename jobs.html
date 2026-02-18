@@ -27,7 +27,7 @@
 
     <nav class="header-menu closed" aria-label="Primary Menu">
       <ul aria-label="Navigation">
-        <li aria-label="Home"><a href="#">Home</a></li>
+        <li aria-label="Home"><a href="index.html">Home</a></li>
         <li aria-label="About Us"><a href="#">About Us</a></li>
         <li aria-label="Inside The Tap"><a href="#">Inside The Tap</a></li>
         <li aria-label="Jobs"><a href="#">Jobs</a></li>
@@ -54,7 +54,45 @@
 
 
   <main id="main" tabindex="-1">
-   
+    <form id="contactForm" action="#" method="POST" enctype="multipart/form-data">  
+      <fieldset>
+        <legend class="sr-only">Full Name</legend>
+        <label for="firstName">
+          First Name
+          <input type="text" id="firstName" name="firstName" placeholder="John" required autocomplete="given-name">
+        </label>
+        <label for="lastName">
+          Last Name
+          <input type="text" id="lastName" name="lastName" placeholder="Doe" required autocomplete="family-name">
+        </label>
+      </fieldset>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="john@example.com" required>
+
+      <label for="comments">Please share why you want the position</label>
+      <textarea id="comments" name="comments" rows="5" placeholder="Write your message here..."></textarea>
+
+      <label for="resume">Attach Resume</label>
+      <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
+
+      <button type="submit">Submit</button>
+    </form>
+    <section id="confirmation" aria-live="polite" style="display:none;">
+      <h2>Thank you for your submission!</h2>
+      <p>Here is what we received:</p>
+      <dl>
+        <dt>First Name:</dt>
+        <dd id="conf-firstName"></dd>
+        <dt>Last Name:</dt>
+        <dd id="conf-lastName"></dd>
+        <dt>Email:</dt>
+        <dd id="conf-email"></dd>
+        <dt>Comments:</dt>
+        <dd id="conf-comments"></dd>
+        <dt>Resume:</dt>
+        <dd id="conf-resume"></dd>
+      </dl>
+    </section>
   </main>
 
   <script>
@@ -125,6 +163,28 @@ handleResize(mediaQuery);
 // Run on resize
 mediaQuery.addEventListener("change", handleResize);
 
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // stops the actual form submission
+
+      // Grab values
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const email = document.getElementById('email').value;
+      const comments = document.getElementById('comments').value;
+      const resumeInput = document.getElementById('resume');
+      const resumeName = resumeInput.files.length > 0 ? resumeInput.files[0].name : 'No file attached';
+
+      // Populate confirmation
+      document.getElementById('conf-firstName').textContent = firstName;
+      document.getElementById('conf-lastName').textContent = lastName;
+      document.getElementById('conf-email').textContent = email;
+      document.getElementById('conf-comments').textContent = comments || 'None provided';
+      document.getElementById('conf-resume').textContent = resumeName;
+
+      // Swap form for confirmation
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('confirmation').style.display = 'block';
+    });
   </script>
 </body>
 </html>
