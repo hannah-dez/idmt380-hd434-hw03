@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="index">
+<body>
   <header aria-label="Header">
     <a href="#main" class="skip-link">Skip to main content</a>
 
@@ -54,18 +54,7 @@
 
 
   <main id="main" tabindex="-1">
-    <article class="main-box" aria-label="Location, Menu, and Visit Navigation" role="Content">
-      <address aria-label="Address">901 N 2nd St | Northern Liberties | Philadelphia, PA</address>
-
-      <nav class="primary-actions" aria-label="Menu and Visit Navigation">
-        <ul aria-label="Menu and Visit Navigation">
-          <li aria-label="Eat"><a href="#" data-bg="food" class="action-link">Eat</a></li>
-          <li aria-label="Drink"><a href="#" data-bg="drink" class="action-link">Drink</a></li>
-          <li aria-label="Visit"><a href="#" data-bg="visit" class="action-link">Visit</a></li>
-          <li aria-label="Happy Hour"><a href="#" data-bg="happy" class="action-link">Happy Hour</a></li>
-        </ul>
-      </nav>
-    </article>
+   
   </main>
 
   <script>
@@ -82,17 +71,6 @@
       const enabled = document.body.classList.toggle("dyslexia-mode");
       toggle.setAttribute("aria-checked", enabled.toString());
       localStorage.setItem("dyslexia", enabled ? "on" : "off");
-    });
-
-    const links = document.querySelectorAll("[data-bg]");
-    const body = document.body;
-
-    links.forEach(link => {
-      const bgClass = `bg-${link.dataset.bg}`;
-      link.addEventListener("mouseenter", () => body.classList.add(bgClass));
-      link.addEventListener("mouseleave", () => body.classList.remove(bgClass));
-      link.addEventListener("focus", () => body.classList.add(bgClass));
-      link.addEventListener("blur", () => body.classList.remove(bgClass));
     });
 
     const updateSocialIcons = () => {
