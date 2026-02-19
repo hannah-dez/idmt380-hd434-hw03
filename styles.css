@@ -5,7 +5,7 @@
   --accent-color: #630606;
   --accent-two: #bc8d00;
   --accent-color-fade: rgba(0, 0, 0, 0.60);
-  --dark-bg: #424242;
+  --dark-bg: #2c2c2c;
   --dark-text: #F7F7F7; 
   --focus: #1159ab;
   --focus-dark: #51a2ff;
@@ -73,6 +73,18 @@ main{
   flex-direction: column;
   align-items: end;
 }
+
+.second-header{
+
+  background-image: 
+    linear-gradient(var(--bg-color-fade), var(--bg-color-fade)),
+    url("https://images.squarespace-cdn.com/content/v1/5dd43005931aab7d2c9b4cdf/1592505151560-CEYVJVN3I89QY1W0RVCQ/homepage%2Bbackground.jpg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  padding-bottom:15px;
+}
+
 
 /*BODY AND PHOTO STYLING*/
 body::after {
@@ -146,7 +158,9 @@ p{
   font-size: clamp(1.05rem, 8vw, 5rem);
 
 }
-
+button {
+  font-family: inherit;
+}
 a{
     text-decoration: none;
     color: var(--text-color);
@@ -292,6 +306,10 @@ li a:focus-visible {
   margin-left: auto;
 }
 
+.dyslexia-mode button {
+  font-family: "OpenDyslexic", Verdana, sans-serif;
+}
+
 .dyslexia-mode {
   font-family: "OpenDyslexic", Verdana, sans-serif;
   line-height: 1.8;
@@ -312,7 +330,13 @@ body.dyslexia-mode #dyslexia-toggle {
   letter-spacing: 0.04em; /* reduced */
   word-spacing: 0.08em;
 }
+::placeholder {
+  font-family: inherit;
+}
 
+.dyslexia-mode ::placeholder {
+  font-family: "OpenDyslexic", Verdana, sans-serif;
+}
 .skip-link:focus { top: 0; }
 
 .main-box {
@@ -364,6 +388,23 @@ body.dyslexia-mode #dyslexia-toggle {
 }
 
 /*JOBS PAGE AND FORM STYLING*/
+
+body.jobs main {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+body.jobs header {
+  padding: 0;
+  margin: 0;
+}
+
+body.jobs .second-header {
+  width: 100%;
+  padding: 3vw;
+  box-sizing: border-box;
+}
 .sr-only {
   position: absolute;
   width: 1px;
@@ -436,7 +477,9 @@ body.dyslexia-mode #dyslexia-toggle {
       flex-direction: column;
       gap: 0.3rem;
     }
-
+    #contactForm.hidden {
+      display: none;
+    }
     button[type="submit"] {
       padding: 0.75rem;
       background-color: var(--accent-color);
@@ -444,31 +487,63 @@ body.dyslexia-mode #dyslexia-toggle {
       border: none;
       border-radius: 15px;
       font-size: 1rem;
-      transition: background 0.2s;
     }
-
+    button[type="reset"]{
+      padding: 0.75rem;
+      background-color: var(--background-color);
+      color: var(--accent-color);
+      border: solid 2px var(--accent-color);
+      border-radius: 15px;
+      font-size: 1rem;
+      width:fit-content;
+    }
     button[type="submit"]:hover {
-      background-color: var(--accent-color);
       cursor: pointer;
     }
+#returnBtn {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 
 label{
   align-self:flex-start;
 }
 
-/*Confirmation Styling*/
-#confirmation{
-  width:60%;
-  display:flex;
-  flex-direction:column;
-}
-#confirmation dl{
-  display: flex;
-  flex-direction:row;
-  width:20%;
-  align-items:flex-start;
-  Flex-wrap: wrap;
-}
+/*Confirmation*/
+#confirmation {
+      display: none;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 500px;
+      text-align: center;
+    }
+
+    #confirmation h2 {
+      color: var(--accent-color);
+    }
+
+    #confirmation dl {
+      text-align: left;
+      margin-top: 1rem;
+    }
+
+    #confirmation dt {
+      font-weight: bold;
+      color: #333;
+      margin-top: 0.75rem;
+    }
+
+    #confirmation dd {
+      margin: 0.2rem 0 0 0;
+      color: #555;}
 
 /* Optional: responsive adjustments */
 @media (max-width: 768px) {
@@ -519,6 +594,65 @@ label{
  .hamburger span{
     background-color: var(--bg-color);
   }
+  .second-header{
+    background-image: 
+      linear-gradient(var(--box-shadow), var(--box-shadow)),
+      url("https://images.squarespace-cdn.com/content/v1/5dd43005931aab7d2c9b4cdf/1592505151560-CEYVJVN3I89QY1W0RVCQ/homepage%2Bbackground.jpg");
+  }
+  /*Form Page*/
+  body.jobs{
+    background-color:var(--dark-bg);
+  }
+  form{
+    background-color:var(--dark-bg);
+    box-shadow: 0 4px 12px var(--bg-color-fade);
+  }
+  label{
+    color: var(--dark-text);
+  }
+  input, textarea{
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+  }
+  /* Placeholder text */
+  ::placeholder {
+    color: var(--dark-text);
+  }
+
+  /* Confirmation section */
+  #confirmation {
+    background-color: var(--dark-bg);
+    box-shadow: 0 4px 12px var(--bg-color-fade);
+  }
+
+  #confirmation h2 {
+    color: var(--accent-two);
+  }
+
+  #confirmation dt {
+    color: var(--dark-text);
+  }
+
+  #confirmation dd {
+    color: rgba(247, 247, 247, 0.7);
+  }
+
+  #confirmation p {
+    color: var(--dark-text);
+  }
+
+  /* Reset button */
+  button[type="reset"] {
+    background-color: transparent;
+    color: var(--dark-text);
+    border-color: var(--dark-text);
+  }
+
+  /* Return button */
+  #returnBtn {
+    background-color: var(--accent-two);
+    color: var(--dark-bg);
+  }
 }
 
 @media (max-width: 768px) {
@@ -563,10 +697,25 @@ label{
   .site-branding img {
     width: 25vw;
   }
+    form {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  fieldset {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  button[type="submit"],
+  button[type="reset"] {
+    width: 100%;
+  }
 }
 
 @media (max-width: 900px) {
   .social img{
     width: 25vw;
   }
+  
 }
